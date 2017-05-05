@@ -29,17 +29,17 @@ for c, m, zlow, zhigh in [('r', 'o', -50, -25), ('b', '^', -30, -5)]:
     ys = randrange(n, 0, 100)
     zs = randrange(n, zlow, zhigh)
     
-zs = df.ix[1:, 'y']
-xs = df.ix[1:, 'x2']
-ys = df.ix[1:, 'x3']
+zs = df.ix[1:, sys.argv[1]]
+xs = df.ix[1:, sys.argv[2]]
+ys = df.ix[1:, sys.argv[3]]
 
 #plt.show()
 
 ax2.scatter(xs, ys, zs, c=c, marker=m)
 
-ax2.set_xlabel('x2')
-ax2.set_ylabel('x3')
-ax2.set_zlabel('y')
+ax2.set_xlabel(sys.argv[1])
+ax2.set_ylabel(sys.argv[2])
+ax2.set_zlabel(sys.argv[3])
 
 plt.show()
 
