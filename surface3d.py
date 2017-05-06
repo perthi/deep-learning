@@ -12,18 +12,28 @@ import matplotlib.pyplot as plt
 fig = plt.figure()
 ax2 = fig.add_subplot(111, projection='3d')
 
-x1 = df.ix[1:, 'x1']
-x2 = df.ix[1:, 'x2']
-x3 = df.ix[1:, 'x3']
-y =  df.ix[1:, 'y']
+x1 = df.ix[0:, 'x1']
+x2 = df.ix[0:, 'x2']
+x3 = df.ix[0:, 'x3']
+y =  df.ix[0:, 'y']
 
 
 if sys.argv[1:] == ['winter']:
     p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.winter())
 elif sys.argv[1:] == ['cool']:
     p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.cool())
+elif sys.argv[1:] == ['viridis']:
+    p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.viridis())
+elif sys.argv[1:] == ['plasma']:
+    p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.plasma())
+elif sys.argv[1:] == ['inferno']:
+    p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.inferno())
+elif sys.argv[1:] == ['jet']:
+    p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.jet())
+elif sys.argv[1:] == ['gist_ncar']:
+    p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.gist_ncar())
 else:
-    p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.hot())
+    p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.nipy_spectral())
 
 
 fig.colorbar(p)
