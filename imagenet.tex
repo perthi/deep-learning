@@ -4,7 +4,10 @@
 \usetheme{Berlin}
 \usepackage{amsmath}
 
+\mode<presentation>{}
+\usetheme{Warsaw}
 \begin{document}
+
 
 \frame{\titlepage} 
 \section{Introduction}
@@ -15,21 +18,36 @@
 \end{itemize}
 }
 
-\frame{blagg}
 
-%%%\begin{displaymath}
-\begin{exampleblock}{test}
-Input dat er en fjerd ordesn tensor
-\[
-X=X_{i,j,k,l} 
-i,j = position \newline
- %% X = \begin{bmatrix}
- %%   x_{11}       & x_{12} & x_{13} & \dots & x_{1n} \\
- %%   x_{21}       & x_{22} & x_{23} & \dots & x_{2n} \\
- %%   \hdotsfor{5} \\
- %%   x_{d1}       & x_{d2} & x_{d3} & \dots & x_{dn}
- %% \end{bmatrix}
-\]
-\end{exampleblock} 
+\begin{columns}
+  \column{0.9\textwidth}
+  \begin{block}{Input data}
+    \begin{itemize}
+    \item 1.2 mill bilder fra ImageNet
+      \item skaler ned til 256x256 pixeler
+    \item Tensor med rank 4
+      \begin{displaymath}
+        X=X_{i,j,rgb,b} 
+      \end{displaymath}
+      \end{itemize}
+\end{block} 
+\end{columns}
+
+\frame{
+\frametitle{\O kning av datamenged for å unng\aa \ overfitting}
+\section{Data augumentation}
+\begin{itemize}
+\item{Menged av treningsdata \o kes ved å gj\o re a-priori antagelser}
+\item{Label preserving transformations}
+  \begin{itemize}
+    \item Potensiellt stor problem med over fitting med 60 mill parametere
+  \item{Forkjellig utsnitt  224x224 }
+  \item{Variasjon av farge / lyskontrast }
+   \item Data \o kes med en faktor 2048
+  \end{itemize}
+\end{itemize}
+}
+\section{Main Results}
+
 
 \end{document}
