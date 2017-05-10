@@ -24,7 +24,7 @@
   \begin{block}{Input data}
     \begin{itemize}
     \item 1.2 mill bilder fra ImageNet
-      \item skaler ned til 256x256 pixeler
+      \item skalert ned til 256x256 pixeler
     \item Tensor med rank 4
       \begin{displaymath}
         X=X_{i,j,rgb,b} 
@@ -36,17 +36,60 @@
 \frame{
 \frametitle{\O kning av datamenged for å unng\aa \ overfitting}
 \section{Data augumentation}
+Med  60 mill parametre og 1.2 mill bilder s\aa \space vil man f\aa \space problemer
+med overfitting. Dette mitigeres ved å \o ke datamenged p\aa \space 2 m\aa ter. 
+
+\begin{columns}
+  \column{0.9\textwidth}
+\begin{block}{Data augumentation}
 \begin{itemize}
-\item{Menged av treningsdata \o kes ved å gj\o re a-priori antagelser}
 \item{Label preserving transformations}
   \begin{itemize}
-    \item Potensiellt stor problem med over fitting med 60 mill parametere
-  \item{Forkjellig utsnitt  224x224 }
-  \item{Variasjon av farge / lyskontrast }
+  \item{Forkjellig utsnitt  224x224 }   
    \item Data \o kes med en faktor 2048
   \end{itemize}
+  \item{PCA p\aa \space RGB fargeverdien (se neste slide) }
 \end{itemize}
+\end{block}
+\end{columns}
 }
+
+
+
+\frame{
+\frametitle{Tilfedlif bilde utsnitt}
+\begin{columns}
+  \column{0.9\textwidth}
+  \begin{block}{Utsnitt og refleksjon}
+    \begin{itemize}
+    \item {Fra rammen på 256x256 tas tilfeldig utsnitt a 224x244 piksler}
+    \item{Horisontal refleksjon av hvert bilde legges til data settet}
+    \item{Antall bilder \o kes ned en faktor 2048}
+    \item{Sterk korrelasjon, men hindrer overfitting}
+\end{itemize}    
+  \end{block}
+\end{columns}
+}
+
+
+\frame{
+\frametitle{ PCA p\aa \space }
+\begin{columns}
+  \column{0.9\textwidth}
+  \begin{block}{PCA}
+    \begin{itemize}
+    \item Farge pixel (RGB)  verdien $I_{xy} = [ I_{rx}^R, I_{rx}^G, I_{rx}^B]$ endres ved å legge til st\o y langs egenvektorene til
+    correlasjons matrisen $\mathbf{A}$ for RGB verdier.
+    $$[\mathbf{p}_{1}, \mathbf{p}_{2}, \mathbf{p}_{3} ][\alpha_1 \lambda_1, \alpha_2 \lambda_2, \alpha_3 \lambda_3 ]^T$$    
+    Egenvektoren er ortogonale (siden A er symetrisk).
+
+  \item For hvert treningspass s\aa \space legges en st\o y verdi til langs egenvektorene p\aa \space hvert bilde.
+    \end{itemize}
+  \end{block}
+\end{columns}
+}
+
+
 \section{Main Results}
 
 
