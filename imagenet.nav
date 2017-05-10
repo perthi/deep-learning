@@ -15,8 +15,18 @@
 \headcommand {\beamer@framepages {5}{5}}
 \headcommand {\slideentry {2}{0}{2}{6/6}{}{0}}
 \headcommand {\beamer@framepages {6}{6}}
-\headcommand {\beamer@partpages {1}{6}}
-\headcommand {\beamer@subsectionpages {7}{6}}
-\headcommand {\beamer@sectionpages {7}{6}}
-\headcommand {\beamer@documentpages {6}}
-\headcommand {\def \inserttotalframenumber {5}}
+\headcommand {\sectionentry {3}{Analyse}{7}{Analyse}{0}}
+\headcommand {\beamer@sectionpages {2}{6}}
+\headcommand {\beamer@subsectionpages {2}{6}}
+\headcommand {\slideentry {3}{0}{1}{7/7}{}{0}}
+\headcommand {\beamer@framepages {7}{7}}
+\headcommand {\sectionentry {4}{Main Results}{8}{Main Results}{0}}
+\headcommand {\beamer@sectionpages {7}{7}}
+\headcommand {\beamer@subsectionpages {7}{7}}
+\headcommand {\slideentry {4}{0}{1}{8/8}{}{0}}
+\headcommand {\beamer@framepages {8}{8}}
+\headcommand {\beamer@partpages {1}{8}}
+\headcommand {\beamer@subsectionpages {8}{8}}
+\headcommand {\beamer@sectionpages {8}{8}}
+\headcommand {\beamer@documentpages {8}}
+\headcommand {\def \inserttotalframenumber {7}}

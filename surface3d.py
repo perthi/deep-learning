@@ -32,6 +32,8 @@ elif sys.argv[1:] == ['jet']:
     p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.jet())
 elif sys.argv[1:] == ['gist_ncar']:
     p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.gist_ncar())
+elif sys.argv[1:] == ['rainbow']:
+    p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.nipy_spectral())
 else:
     p=ax2.scatter(x1, x2, x3, c=y, cmap=plt.nipy_spectral())
 

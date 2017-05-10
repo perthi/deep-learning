@@ -4,6 +4,9 @@
 \usetheme{Berlin}
 \usepackage{amsmath}
 
+\usepackage{array}
+\usepackage{booktabs}
+
 \mode<presentation>{}
 \usetheme{Warsaw}
 \begin{document}
@@ -14,7 +17,7 @@
 \frame{
 \frametitle{ImageNet Classification}
 \begin{itemize}
-\item ImegeNet Classification with Deep Convolutional Neural Networks  
+\item ImageNet Classification with Deep Convolutional Neural Networks  
 \end{itemize}
 }
 
@@ -23,11 +26,11 @@
   \column{0.9\textwidth}
   \begin{block}{Input data}
     \begin{itemize}
-    \item 1.2 mill bilder fra ImageNet
+    \item ILSVRC-2012 Challenge: 1.2 mill bilder fra ImageNet
       \item skalert ned til 256x256 pixeler
-    \item Tensor med rank 4
+    \item Tensor med rank 3
       \begin{displaymath}
-        X=X_{i,j,rgb,b} 
+        X=X_{i,j,rgb} 
       \end{displaymath}
       \end{itemize}
 \end{block} 
@@ -57,7 +60,7 @@ med overfitting. Dette mitigeres ved å \o ke datamenged p\aa \space 2 m\aa ter.
 
 
 \frame{
-\frametitle{Tilfedlif bilde utsnitt}
+\frametitle{Tilfedlig bilde utsnitt}
 \begin{columns}
   \column{0.9\textwidth}
   \begin{block}{Utsnitt og refleksjon}
@@ -73,7 +76,7 @@ med overfitting. Dette mitigeres ved å \o ke datamenged p\aa \space 2 m\aa ter.
 
 
 \frame{
-\frametitle{ PCA p\aa \space }
+\frametitle{ PCA }
 \begin{columns}
   \column{0.9\textwidth}
   \begin{block}{PCA}
@@ -89,8 +92,46 @@ med overfitting. Dette mitigeres ved å \o ke datamenged p\aa \space 2 m\aa ter.
 \end{columns}
 }
 
+\section{Analyse}
+
+\frame{
+\frametitle{Analyse}
+\begin{columns}
+  \column{0.9\textwidth}
+  \begin{block}{Utsnitt og refleksjon}
+    \begin{itemize}
+    \item {Hardware: 2xNivida GTX 580}
+    \item {Deler av analyse kjeden g\aa r paralellt og uavhengig av hverandre på 2 GPU}
+    \item {Trade off mellom turnover og kompleksitet} 
+\end{itemize}    
+  \end{block}
+ \begin{block}{Simulering av nevroner}
+    ReLU: \[f(x) = max(0,x)\] vs \[f(x) = 1/(1 + exp^-1)\]
+    Trade off mellom turnover og n\o yaktighet. ReLU er 6 ganger rasker \aa \space trene   
+  \end{block}
+  
+\end{columns}
+}
+
 
 \section{Main Results}
+\frame{
+\frametitle{Oppsummering}
+\begin{columns}
+  \column{0.9\textwidth}
+  \begin{tabular}{ l  l  l  l }
+  \toprule			
+  & \multicolumn{2}{c}{Forbedring \%  } & \\
+  Metode & top 1 & top 5 & Kommentar\\
+  2XGPU &1.7  & 1.2  & vs halve kompleksiteten på 1 GPU\\
+  Overlapping pooling  & 0.4 & 0.3 &  s=2, x=3  \\
+  \bottomrule  
+ \end{tabular}  
+ \end{columns}
+ }
+
+
 
 
 \end{document}
+
