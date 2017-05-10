@@ -9,32 +9,41 @@
 
 \mode<presentation>{}
 \usetheme{Warsaw}
+
+%%%\title{ImageNet Classification with Deep Convolutional Neural Networks}
+%%\subtitle{blahhhhhhh}
+
 \begin{document}
 
 
-\frame{\titlepage} 
-\section{Introduction}
+\section{Agenda}
 \frame{
-\frametitle{ImageNet Classification}
-\begin{itemize}
-\item ImageNet Classification with Deep Convolutional Neural Networks  
-\end{itemize}
+\begin{columns}
+  \column{0.9\textwidth}
+ \begin{block}{Introduksjon}
+   Oppsummering av hovedpunketen i artikkelen
+  \end{block} 
+\end{columns}
 }
 
 
+\frame{
+  \frametitle{Intro}
 \begin{columns}
   \column{0.9\textwidth}
   \begin{block}{Input data}
     \begin{itemize}
     \item ILSVRC-2012 Challenge: 1.2 mill bilder fra ImageNet
       \item skalert ned til 256x256 pixeler
-    \item Tensor med rank 3
+    \item Tensor med rank 4
       \begin{displaymath}
-        X=X_{i,j,rgb} 
+        X=X_{i,j,rgb,b}
       \end{displaymath}
+      \item{Batch size (b) = 128}
       \end{itemize}
-\end{block} 
+  \end{block} 
 \end{columns}
+}
 
 \frame{
 \frametitle{\O kning av datamenged for å unng\aa \ overfitting}
@@ -106,8 +115,8 @@ med overfitting. Dette mitigeres ved å \o ke datamenged p\aa \space 2 m\aa ter.
 \end{itemize}    
   \end{block}
  \begin{block}{Simulering av nevroner}
-    ReLU: \[f(x) = max(0,x)\] vs \[f(x) = 1/(1 + exp^-1)\]
-    Trade off mellom turnover og n\o yaktighet. ReLU er 6 ganger rasker \aa \space trene   
+    ReLU: \[f(x) = max(0,x) \space \textrm\] 
+    Trade off mellom turnover og n\o yaktighet. ReLU er 6 ganger rasker \aa \space trene en ved bruk av sigmoid funksjoner.   
   \end{block}
   
 \end{columns}
@@ -123,8 +132,10 @@ med overfitting. Dette mitigeres ved å \o ke datamenged p\aa \space 2 m\aa ter.
   \toprule			
   & \multicolumn{2}{c}{Forbedring \%  } & \\
   Metode & top 1 & top 5 & Kommentar\\
-  2XGPU &1.7  & 1.2  & vs halve kompleksiteten på 1 GPU\\
+  2XGPU &1.7  & 1.2  & \\
   Overlapping pooling  & 0.4 & 0.3 &  s=2, x=3  \\
+  Normalisering  & 1.4 & 1.2 &    \\
+  Dropout  & 1.4 & 1.2 &    \\  
   \bottomrule  
  \end{tabular}  
  \end{columns}
