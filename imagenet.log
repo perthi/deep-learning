@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.4.24)  10 MAY 2017 14:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.4.24)  10 MAY 2017 14:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -991,13 +991,6 @@ Missing character: There is no ¥ in font cmss10!
  [6
 
 ]
-Missing character: There is no Ã in font cmss10!
-Missing character: There is no ¥ in font cmss10!
-
-Overfull \hbox (64.6575pt too wide) in paragraph at lines 140--140
-[][]  
- []
-
 [7
 
 ]
@@ -1010,11 +1003,11 @@ Overfull \hbox (64.6575pt too wide) in paragraph at lines 140--140
 \tf@snm=\write8
 \openout8 = `imagenet.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 145.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 145.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 146.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 146.
  (./imagenet.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 145.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 145.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 146.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 146.
 
 
 Package rerunfilecheck Warning: File `imagenet.out' has changed.
@@ -1022,36 +1015,34 @@ Package rerunfilecheck Warning: File `imagenet.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `imagenet.out':
-(rerunfilecheck)             Before: A708B9F50B2DCA4B1D929305EA7018E1;189
+(rerunfilecheck)             Before: 7587D6CFB542D392709471A6531EE801;94
 (rerunfilecheck)             After:  EB52ACB5EF3DAEB05138FD6ABCCB4CED;183.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 145.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 146.
  ) 
 Here is how much of TeX's memory you used:
- 16936 strings out of 493029
- 327621 string characters out of 6136234
+ 16926 strings out of 493029
+ 327408 string characters out of 6136234
  402052 words of memory out of 5000000
- 20037 multiletter control sequences out of 15000+600000
- 12177 words of font info for 44 fonts, out of 8000000 for 9000
+ 20029 multiletter control sequences out of 15000+600000
+ 11577 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,19n,65p,405b,1093s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmsy8.pfb>
-Output written on imagenet.pdf (7 pages, 112863 bytes).
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmssi10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmssi8.pfb>
+Output written on imagenet.pdf (7 pages, 95121 bytes).
 PDF statistics:
- 314 PDF objects out of 1000 (max. 8388607)
- 273 compressed objects within 3 object streams
+ 300 PDF objects out of 1000 (max. 8388607)
+ 261 compressed objects within 3 object streams
  19 named destinations out of 1000 (max. 500000)
- 123 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 107 words of extra memory for PDF output out of 10000 (max. 10000000)
 
