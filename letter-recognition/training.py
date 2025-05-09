@@ -1,11 +1,18 @@
 import numpy as np
+
 import tensorflow as tf
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
+
+#from tensorflow.python.keras.models import Sequential, load_model
+#from tensorflow.python.keras.layers import Dense
+
 import matplotlib.pyplot as plt
 import logging
 import warnings
 from autils import *
+from utils import *
 
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
 tf.autograph.set_verbosity(0)
@@ -73,17 +80,8 @@ model.fit(
     epochs=EPOCS
 )
 
-prediction = model.predict(X[0].reshape(1,400))  # a zero
-print(f" predicting a zero: {prediction}")
-prediction = model.predict(X[500].reshape(1,400))  # a one
-print(f" predicting a one:  {prediction}")
 
-
-if prediction >= 0.5:
-    yhat = 1
-else:
-    yhat = 0
-print(f"prediction after threshold: {yhat}")
+prediction_debug(X, model)
 
 
 #m, n = X.shape
