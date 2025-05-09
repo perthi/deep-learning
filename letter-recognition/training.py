@@ -23,18 +23,7 @@ NO_EPOCS = 20
 X, y = load_data()
 m, n = X.shape
 
-fig, axes = plt.subplots(8,8, figsize=(16,16))
-fig.tight_layout(pad=0.1)
-
-for i,ax in enumerate(axes.flat):
-    random_index = np.random.randint(m)
-    X_random_reshaped = X[random_index].reshape((20,20)).T    # reshape the image
-    ax.imshow(X_random_reshaped, cmap='gray')
-    # Display the label above the image
-    ax.set_title(y[random_index,0])
-    ax.set_axis_off()
-
-#plt.show()
+plot_random(8, 8, X, y, figsize=(8,8))
 
 model = Sequential(
     [               
@@ -60,8 +49,6 @@ W3,b3 = layer3.get_weights()
 print(f"W1 shape = {W1.shape}, b1 shape = {b1.shape}")
 print(f"W2 shape = {W2.shape}, b2 shape = {b2.shape}")
 print(f"W3 shape = {W3.shape}, b3 shape = {b3.shape}")
-
-
 print(model.layers[2].weights)
 
 model.compile(
@@ -76,37 +63,14 @@ model.fit(
 
 prediction_debug(X, model)
 
-
-fig, axes = plt.subplots(8,8, figsize=(8,8))
-fig.tight_layout(pad=0.1,rect=[0, 0.03, 1, 0.92]) #[left, bottom, right, top]
-
-for i, ax in enumerate(axes.flat):
-    random_index = np.random.randint(m)
-    X_random_reshaped = X[random_index].reshape((20,20)).T
-    # Display the image
-    ax.imshow(X_random_reshaped, cmap='gray')
-    
-    # Predict using the Neural Network
-    prediction = model.predict(X[random_index].reshape(1,400))
-    if prediction >= 0.5:
-        yhat = 1
-    else:
-        yhat = 0
-    # Display the label above the image
-    ax.set_title(f"{y[random_index,0]},{yhat}")
-    ax.set_axis_off()
-
+fig = plot_random_with_prediction(8, 8, X, y, model, figsize=(8,8))
 fig.suptitle("Label, yhat", fontsize=16)
-
-#plt.ion()
-plt.show()
 
 x = X[0].reshape(-1,1)         # column vector (400,1)
 z1 = np.matmul(x.T,W1) + b1    # (1,400)(400,25) = (1,25)
 a1 = sigmoid(z1)
-print(a1.shape)
 
-def my_dense_v(A_in, W, b, g):
+def dense_propagation_v(A_in, W, b, g):
     AT = A_in
     Z = np.matmul(AT,W) + b
     A_out = g(Z)
@@ -116,13 +80,13 @@ def my_dense_v(A_in, W, b, g):
 X_tst = 0.1*np.arange(1,9,1).reshape(4,2) # (4 examples, 2 features)
 W_tst = 0.1*np.arange(1,7,1).reshape(2,3) # (2 input features, 3 output features)
 b_tst = 0.1*np.arange(1,4,1).reshape(1,3) # (1,3 features)
-A_tst = my_dense_v(X_tst, W_tst, b_tst, sigmoid)
+A_tst = dense_propagation_v(X_tst, W_tst, b_tst, sigmoid)
 print(A_tst)
 
-def my_sequential_v(X, W1, b1, W2, b2, W3, b3):
-    A1 = my_dense_v(X,  W1, b1, sigmoid)
-    A2 = my_dense_v(A1, W2, b2, sigmoid)
-    A3 = my_dense_v(A2, W3, b3, sigmoid)
+def inference_v(X, W1, b1, W2, b2, W3, b3):
+    A1 = dense_propagation_v(X,  W1, b1, sigmoid)
+    A2 = dense_propagation_v(A1, W2, b2, sigmoid)
+    A3 = dense_propagation_v(A2, W3, b3, sigmoid)
     return(A3)
 
 W1_tmp,b1_tmp = layer1.get_weights()
@@ -130,52 +94,51 @@ W2_tmp,b2_tmp = layer2.get_weights()
 W3_tmp,b3_tmp = layer3.get_weights()
 
 
-Prediction = my_sequential_v(X, W1_tmp, b1_tmp, W2_tmp, b2_tmp, W3_tmp, b3_tmp )
-Yhat = (Prediction >= 0.5).astype(int)
+prediction = inference_v(X, W1_tmp, b1_tmp, W2_tmp, b2_tmp, W3_tmp, b3_tmp )
+
+Yhat = (prediction >= 0.5).astype(int)
 print("predict a zero: ",Yhat[0], "predict a one: ", Yhat[500])
 
-m, n = X.shape
-
-fig, axes = plt.subplots(8, 8, figsize=(8, 8))
-fig.tight_layout(pad=0.1, rect=[0, 0.03, 1, 0.92]) #[left, bottom, right, top]
-
-for i, ax in enumerate(axes.flat):
-    random_index = np.random.randint(m)
-    X_random_reshaped = X[random_index].reshape((20, 20)).T  # reshape the image
-    # Display the image
-    ax.imshow(X_random_reshaped, cmap='gray') # Display the image
-   
-    # Display the label above the image
-    ax.set_title(f"{y[random_index,0]}, {Yhat[random_index, 0]}")
-    ax.set_axis_off() 
+fig = plot_random_with_prediction_v(8, 8, X, y, Yhat, figsize=(8,8))
 fig.suptitle("Label, Yhat", fontsize=16)
+
 #plt.show()
-
 fig = plt.figure(figsize=(1, 1))
-
 
 errors = np.where(y != Yhat)
 
 
 ################################################
+
+
 print("tuple[0]", errors[0])
 print("tuple[1]", errors[1])
 
 indexes = errors[0]
 values =  errors[1]
 
+len_err = len(values)
+len_all = len(y)
+percent = 100*(len_err/len_all)
+
+print("{} out of {} images was miss classified ( {} %)".format(len_err, len_all, percent))
+
+
 for i in range(len(indexes)):
     print("index = {}, value = {}, yhat = {}".format(indexes[i], values[i], Yhat[ indexes[i] ] ))
 
+
 def plot_image(index):
-    print("random index = ", index )
+    print("index = ", index )
     X_random_reshaped = X[index].reshape((20, 20)).T
     plt.imshow(X_random_reshaped, cmap='gray')
     plt.title(f"actual {y[index,0]}, predicted {Yhat[index, 0]}")
     plt.axis('off')
 
-for i in range(len(indexes)):
+for i in range(len(values)):
     plot_image(indexes[i])
     plt.show()
+
+print("LEN = ", len(indexes)  )
 
 plt.show()
