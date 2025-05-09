@@ -13,11 +13,11 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 X, y = load_data()
 
+EPOCS = 20
+
 print ('The first element of X is: ', X[0])
 print ('The shape of X is: ' + str(X.shape))
 print ('The shape of y is: ' + str(y.shape))
-
-#warnings.simplefilter(action='ignore', category=FutureWarning)
 
 m, n = X.shape
 
@@ -26,11 +26,7 @@ fig.tight_layout(pad=0.1)
 
 for i,ax in enumerate(axes.flat):
     random_index = np.random.randint(m)
-    
-    # Select rows corresponding to the random indices and
-    # reshape the image
-    X_random_reshaped = X[random_index].reshape((20,20)).T
-    
+    X_random_reshaped = X[random_index].reshape((20,20)).T    # reshape the image
     ax.imshow(X_random_reshaped, cmap='gray')
     # Display the label above the image
     ax.set_title(y[random_index,0])
@@ -74,7 +70,7 @@ model.compile(
 
 model.fit(
     X,y,
-    epochs=5
+    epochs=EPOCS
 )
 
 prediction = model.predict(X[0].reshape(1,400))  # a zero
@@ -89,11 +85,8 @@ else:
     yhat = 0
 print(f"prediction after threshold: {yhat}")
 
-#  import warnings
-#  warnings.simplefilter(action='ignore', category=FutureWarning)
-#  You do not need to modify anything in this cell
 
-m, n = X.shape
+#m, n = X.shape
 
 fig, axes = plt.subplots(8,8, figsize=(8,8))
 fig.tight_layout(pad=0.1,rect=[0, 0.03, 1, 0.92]) #[left, bottom, right, top]
@@ -153,13 +146,8 @@ W3_tmp,b3_tmp = layer3.get_weights()
 
 
 Prediction = my_sequential_v(X, W1_tmp, b1_tmp, W2_tmp, b2_tmp, W3_tmp, b3_tmp )
-Prediction.shape
-
 Yhat = (Prediction >= 0.5).astype(int)
 print("predict a zero: ",Yhat[0], "predict a one: ", Yhat[500])
-
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
 
 m, n = X.shape
 
@@ -168,11 +156,9 @@ fig.tight_layout(pad=0.1, rect=[0, 0.03, 1, 0.92]) #[left, bottom, right, top]
 
 for i, ax in enumerate(axes.flat):
     random_index = np.random.randint(m)
-    # reshape the image
-    X_random_reshaped = X[random_index].reshape((20, 20)).T
-    
+    X_random_reshaped = X[random_index].reshape((20, 20)).T  # reshape the image
     # Display the image
-    ax.imshow(X_random_reshaped, cmap='gray')
+    ax.imshow(X_random_reshaped, cmap='gray') # Display the image
    
     # Display the label above the image
     ax.set_title(f"{y[random_index,0]}, {Yhat[random_index, 0]}")
@@ -183,27 +169,14 @@ fig.suptitle("Label, Yhat", fontsize=16)
 fig = plt.figure(figsize=(1, 1))
 errors = np.where(y != Yhat)
 
+
+################################################
 print("tuple[0]", errors[0])
 print("tuple[1]", errors[1])
 
 indexes = errors[0]
 values =  errors[1]
 
-fig, axes = plt.subplots(5,5, figsize=(8,8))
-fig.tight_layout(pad=0.1)
-
-
-"""
-for i in range(len(errors)):
-    X_reshaped =  X[indexes[i]].reshape((20, 20)).T
-    ax.imshow(X_reshaped, cmap="gray")
-    ax.set_title(y[indexes[i],0])
-    ax.set_axis_off()
-
-
-plt.show()
-
-"""
 for i in range(len(indexes)):
     print("index = {}, value = {}, yhat = {}".format(indexes[i], values[i], Yhat[ indexes[i] ] ))
 
@@ -211,24 +184,11 @@ def plot_image(index):
     print("random index = ", index )
     X_random_reshaped = X[index].reshape((20, 20)).T
     plt.imshow(X_random_reshaped, cmap='gray')
-    plt.title(f"{y[index,0]}, {Yhat[index, 0]}")
+    plt.title(f"actual {y[index,0]}, predicted {Yhat[index, 0]}")
     plt.axis('off')
 
-random_index = errors[0][0]
-
-#plot_image(random_index)
-plot_image(142)
-plot_image(488)
-plot_image(521)
-plot_image(952)
+for i in range(len(indexes)):
+    plot_image(indexes[i])
+    plt.show()
 
 plt.show()
-
-"""
-print("random index = ", random_index )
-X_random_reshaped = X[random_index].reshape((20, 20)).T
-plt.imshow(X_random_reshaped, cmap='gray')
-plt.title(f"{y[random_index,0]}, {Yhat[random_index, 0]}")
-plt.axis('off')
-plt.show()
-"""
