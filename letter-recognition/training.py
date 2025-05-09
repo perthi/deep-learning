@@ -12,6 +12,7 @@ import logging
 import warnings
 #from autils import *
 from utils import *
+import sys
 
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
 tf.autograph.set_verbosity(0)
@@ -29,6 +30,7 @@ L1 = 25
 L2 = 10
 L3 = 15
 
+"""
 model = Sequential(
     [               
         tf.keras.Input(shape=(400,)),    #specify input size
@@ -38,9 +40,24 @@ model = Sequential(
         Dense(1, activation="sigmoid")
     ], name = "my_model" 
 )
+"""
 
+
+model = Sequential(
+    [               
+        tf.keras.Input(shape=(400,)),    #specify input size
+    ], name = "my_model" 
+)
+
+
+model.add( Dense(L1, activation="sigmoid") )
+model.add( Dense(L2, activation="sigmoid") )
+model.add( Dense(L3, activation="sigmoid") )
+model.add( Dense(1, activation="sigmoid") )
 model.summary()
 
+
+#sys.exit()
 
 [layer1, layer2, layer3, layer4] = model.layers
 W1,b1 = layer1.get_weights()
