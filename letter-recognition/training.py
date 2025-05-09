@@ -3,22 +3,21 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import matplotlib.pyplot as plt
-# %matplotlib inline
 import logging
+import warnings
+from autils import *
+
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
 tf.autograph.set_verbosity(0)
-from autils import *
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 X, y = load_data()
 
-print("Hello world")
 print ('The first element of X is: ', X[0])
 print ('The shape of X is: ' + str(X.shape))
 print ('The shape of y is: ' + str(y.shape))
 
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
-# You do not need to modify anything in this cell
+#warnings.simplefilter(action='ignore', category=FutureWarning)
 
 m, n = X.shape
 
@@ -26,7 +25,6 @@ fig, axes = plt.subplots(8,8, figsize=(8,8))
 fig.tight_layout(pad=0.1)
 
 for i,ax in enumerate(axes.flat):
-    # Select random indices
     random_index = np.random.randint(m)
     
     # Select rows corresponding to the random indices and
@@ -43,11 +41,9 @@ for i,ax in enumerate(axes.flat):
 model = Sequential(
     [               
         tf.keras.Input(shape=(400,)),    #specify input size
-        ### START CODE HERE ### 
         Dense(25, activation="sigmoid"),
         Dense(15, activation="sigmoid"),
         Dense(1, activation="sigmoid")
-        ### END CODE HERE ### 
     ], name = "my_model" 
 )
 
@@ -57,8 +53,8 @@ L1_num_params = 400 * 25 + 25  # W1 parameters  + b1 parameters
 L2_num_params = 25 * 15 + 15   # W2 parameters  + b2 parameters
 L3_num_params = 15 * 1 + 1     # W3 parameters  + b3 parameters
 print("L1 params = ", L1_num_params, ", L2 params = ", L2_num_params, ",  L3 params = ", L3_num_params )
-# from public_tests import *
-# test_c1(model)
+
+
 
 [layer1, layer2, layer3] = model.layers
 W1,b1 = layer1.get_weights()
@@ -93,9 +89,9 @@ else:
     yhat = 0
 print(f"prediction after threshold: {yhat}")
 
-import warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
-# You do not need to modify anything in this cell
+#  import warnings
+#  warnings.simplefilter(action='ignore', category=FutureWarning)
+#  You do not need to modify anything in this cell
 
 m, n = X.shape
 
@@ -103,13 +99,8 @@ fig, axes = plt.subplots(8,8, figsize=(8,8))
 fig.tight_layout(pad=0.1,rect=[0, 0.03, 1, 0.92]) #[left, bottom, right, top]
 
 for i,ax in enumerate(axes.flat):
-    # Select random indices
     random_index = np.random.randint(m)
-    
-    # Select rows corresponding to the random indices and
-    # reshape the image
     X_random_reshaped = X[random_index].reshape((20,20)).T
-    
     # Display the image
     ax.imshow(X_random_reshaped, cmap='gray')
     
@@ -169,7 +160,6 @@ print("predict a zero: ",Yhat[0], "predict a one: ", Yhat[500])
 
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
-# You do not need to modify anything in this cell
 
 m, n = X.shape
 
@@ -177,10 +167,7 @@ fig, axes = plt.subplots(8, 8, figsize=(8, 8))
 fig.tight_layout(pad=0.1, rect=[0, 0.03, 1, 0.92]) #[left, bottom, right, top]
 
 for i, ax in enumerate(axes.flat):
-    # Select random indices
     random_index = np.random.randint(m)
-    
-    # Select rows corresponding to the random indices and
     # reshape the image
     X_random_reshaped = X[random_index].reshape((20, 20)).T
     
@@ -195,19 +182,53 @@ fig.suptitle("Label, Yhat", fontsize=16)
 
 fig = plt.figure(figsize=(1, 1))
 errors = np.where(y != Yhat)
-print("yhat:len = ", len(Yhat))
-print("y:len =", len(y))
 
-#for i in range(1000):
-#    print("%d,%d", y[i], Yhat[i])
+print("tuple[0]", errors[0])
+print("tuple[1]", errors[1])
 
-print("Errors shape:", np.ndim(errors) )
-print("Errors:",  errors )
+indexes = errors[0]
+values =  errors[1]
 
+fig, axes = plt.subplots(5,5, figsize=(8,8))
+fig.tight_layout(pad=0.1)
+
+
+"""
+for i in range(len(errors)):
+    X_reshaped =  X[indexes[i]].reshape((20, 20)).T
+    ax.imshow(X_reshaped, cmap="gray")
+    ax.set_title(y[indexes[i],0])
+    ax.set_axis_off()
+
+
+plt.show()
+
+"""
+for i in range(len(indexes)):
+    print("index = {}, value = {}, yhat = {}".format(indexes[i], values[i], Yhat[ indexes[i] ] ))
+
+def plot_image(index):
+    print("random index = ", index )
+    X_random_reshaped = X[index].reshape((20, 20)).T
+    plt.imshow(X_random_reshaped, cmap='gray')
+    plt.title(f"{y[index,0]}, {Yhat[index, 0]}")
+    plt.axis('off')
 
 random_index = errors[0][0]
+
+#plot_image(random_index)
+plot_image(142)
+plot_image(488)
+plot_image(521)
+plot_image(952)
+
+plt.show()
+
+"""
+print("random index = ", random_index )
 X_random_reshaped = X[random_index].reshape((20, 20)).T
 plt.imshow(X_random_reshaped, cmap='gray')
 plt.title(f"{y[random_index,0]}, {Yhat[random_index, 0]}")
 plt.axis('off')
 plt.show()
+"""
