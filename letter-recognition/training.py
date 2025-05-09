@@ -78,7 +78,7 @@ model.compile(
 
 model.fit(
     X,y,
-    epochs=100
+    epochs=5
 )
 
 prediction = model.predict(X[0].reshape(1,400))  # a zero
@@ -195,12 +195,19 @@ fig.suptitle("Label, Yhat", fontsize=16)
 
 fig = plt.figure(figsize=(1, 1))
 errors = np.where(y != Yhat)
-print("yhat:len = %d", len(Yhat))
-print("y:len = %d", len(y))
+print("yhat:len = ", len(Yhat))
+print("y:len =", len(y))
 
-#random_index = errors[0][0]
-#X_random_reshaped = X[random_index].reshape((20, 20)).T
-#plt.imshow(X_random_reshaped, cmap='gray')
-#plt.title(f"{y[random_index,0]}, {Yhat[random_index, 0]}")
-#plt.axis('off')
-#plt.show()
+#for i in range(1000):
+#    print("%d,%d", y[i], Yhat[i])
+
+print("Errors shape:", np.ndim(errors) )
+print("Errors:",  errors )
+
+
+random_index = errors[0][0]
+X_random_reshaped = X[random_index].reshape((20, 20)).T
+plt.imshow(X_random_reshaped, cmap='gray')
+plt.title(f"{y[random_index,0]}, {Yhat[random_index, 0]}")
+plt.axis('off')
+plt.show()
