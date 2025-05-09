@@ -18,37 +18,40 @@ tf.autograph.set_verbosity(0)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 print(tf.__version__)
-NO_EPOCS = 20
+NO_EPOCS = 30
 
 X, y = load_data()
 m, n = X.shape
 
 plot_random(8, 8, X, y, figsize=(8,8))
 
+L1 = 25
+L2 = 10
+L3 = 15
+
 model = Sequential(
     [               
         tf.keras.Input(shape=(400,)),    #specify input size
-        Dense(25, activation="sigmoid"),
-        Dense(15, activation="sigmoid"),
+        Dense(L1, activation="sigmoid"),
+        Dense(L2, activation="sigmoid"),
+        Dense(L3, activation="sigmoid"),
         Dense(1, activation="sigmoid")
     ], name = "my_model" 
 )
 
 model.summary()
 
-L1_num_params = 400 * 25 + 25  # W1 parameters  + b1 parameters
-L2_num_params = 25 * 15 + 15   # W2 parameters  + b2 parameters
-L3_num_params = 15 * 1 + 1     # W3 parameters  + b3 parameters
-print("L1 params = ", L1_num_params, ", L2 params = ", L2_num_params, ",  L3 params = ", L3_num_params )
 
-
-[layer1, layer2, layer3] = model.layers
+[layer1, layer2, layer3, layer4] = model.layers
 W1,b1 = layer1.get_weights()
 W2,b2 = layer2.get_weights()
 W3,b3 = layer3.get_weights()
+W4,b4 = layer4.get_weights()
 print(f"W1 shape = {W1.shape}, b1 shape = {b1.shape}")
 print(f"W2 shape = {W2.shape}, b2 shape = {b2.shape}")
 print(f"W3 shape = {W3.shape}, b3 shape = {b3.shape}")
+print(f"W4 shape = {W4.shape}, b4 shape = {b4.shape}")
+
 print(model.layers[2].weights)
 
 model.compile(
@@ -83,18 +86,19 @@ b_tst = 0.1*np.arange(1,4,1).reshape(1,3) # (1,3 features)
 A_tst = dense_propagation_v(X_tst, W_tst, b_tst, sigmoid)
 print(A_tst)
 
-def inference_v(X, W1, b1, W2, b2, W3, b3):
+def inference_v(X, W1, b1, W2, b2, W3, b3, W4, b4):
     A1 = dense_propagation_v(X,  W1, b1, sigmoid)
     A2 = dense_propagation_v(A1, W2, b2, sigmoid)
     A3 = dense_propagation_v(A2, W3, b3, sigmoid)
-    return(A3)
+    A4 = dense_propagation_v(A3, W4, b4, sigmoid)
+    return(A4)
 
 W1_tmp,b1_tmp = layer1.get_weights()
 W2_tmp,b2_tmp = layer2.get_weights()
 W3_tmp,b3_tmp = layer3.get_weights()
+W4_tmp,b4_tmp = layer4.get_weights()
 
-
-prediction = inference_v(X, W1_tmp, b1_tmp, W2_tmp, b2_tmp, W3_tmp, b3_tmp )
+prediction = inference_v(X, W1_tmp, b1_tmp, W2_tmp, b2_tmp, W3_tmp, b3_tmp, W4_tmp, b4_tmp)
 
 Yhat = (prediction >= 0.5).astype(int)
 print("predict a zero: ",Yhat[0], "predict a one: ", Yhat[500])

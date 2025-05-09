@@ -97,3 +97,12 @@ def plot_random_with_prediction_v(rows:int, columns:int, X, y, Yhat, figsize=(8,
     
     return fig
 
+
+def print_params(L1,L2,L3, L4):
+    L1_num_params = 400 *L1 + L2  # W1 parameters  + b1 parameters
+    L2_num_params = L1*L2 + L2   # W2 parameters  + b2 parameters
+    L3_num_params = L2 *L3 + L3
+    L4_num_params = L3 * 1 + 1     # W3 parameters  + b3 parameters
+
+    print("L1 params = ", L1_num_params, ", L2 params = ", 
+      L2_num_params, ",  L3 params = ", L3_num_params, ",  L4 params = ", L4_num_params)
