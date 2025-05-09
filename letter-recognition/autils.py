@@ -1,5 +1,6 @@
 import numpy as np
 
+"""
 def load_data():
     X = np.load("data/X.npy")
     y = np.load("data/y.npy")
@@ -16,3 +17,4 @@ def load_weights():
 
 def sigmoid(x):
     return 1. / (1. + np.exp(-x))
+"""

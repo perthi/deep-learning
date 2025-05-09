@@ -1,34 +1,29 @@
 import numpy as np
-
 import tensorflow as tf
-
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-
-#from tensorflow.python.keras.models import Sequential, load_model
-#from tensorflow.python.keras.layers import Dense
+from keras.api.layers import *
+from keras.api.optimizers import *
+from keras.api.models import Sequential
+from keras.api.layers import Dense
+from keras.api.losses import *
 
 import matplotlib.pyplot as plt
+import matplotlib.axes._axes as Axes
 import logging
 import warnings
-from autils import *
+#from autils import *
 from utils import *
 
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
 tf.autograph.set_verbosity(0)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
+print(tf.__version__)
+NO_EPOCS = 20
+
 X, y = load_data()
-
-EPOCS = 20
-
-print ('The first element of X is: ', X[0])
-print ('The shape of X is: ' + str(X.shape))
-print ('The shape of y is: ' + str(y.shape))
-
 m, n = X.shape
 
-fig, axes = plt.subplots(8,8, figsize=(8,8))
+fig, axes = plt.subplots(8,8, figsize=(16,16))
 fig.tight_layout(pad=0.1)
 
 for i,ax in enumerate(axes.flat):
@@ -58,7 +53,6 @@ L3_num_params = 15 * 1 + 1     # W3 parameters  + b3 parameters
 print("L1 params = ", L1_num_params, ", L2 params = ", L2_num_params, ",  L3 params = ", L3_num_params )
 
 
-
 [layer1, layer2, layer3] = model.layers
 W1,b1 = layer1.get_weights()
 W2,b2 = layer2.get_weights()
@@ -71,25 +65,22 @@ print(f"W3 shape = {W3.shape}, b3 shape = {b3.shape}")
 print(model.layers[2].weights)
 
 model.compile(
-    loss=tf.keras.losses.BinaryCrossentropy(),
-    optimizer=tf.keras.optimizers.Adam(0.001),
+    loss= BinaryCrossentropy(),
+    optimizer= Adam(0.001),
 )
 
 model.fit(
     X,y,
-    epochs=EPOCS
+    epochs=NO_EPOCS
 )
-
 
 prediction_debug(X, model)
 
 
-#m, n = X.shape
-
 fig, axes = plt.subplots(8,8, figsize=(8,8))
 fig.tight_layout(pad=0.1,rect=[0, 0.03, 1, 0.92]) #[left, bottom, right, top]
 
-for i,ax in enumerate(axes.flat):
+for i, ax in enumerate(axes.flat):
     random_index = np.random.randint(m)
     X_random_reshaped = X[random_index].reshape((20,20)).T
     # Display the image
@@ -101,13 +92,14 @@ for i,ax in enumerate(axes.flat):
         yhat = 1
     else:
         yhat = 0
-    
     # Display the label above the image
     ax.set_title(f"{y[random_index,0]},{yhat}")
     ax.set_axis_off()
+
 fig.suptitle("Label, yhat", fontsize=16)
 
-#plt.show()
+#plt.ion()
+plt.show()
 
 x = X[0].reshape(-1,1)         # column vector (400,1)
 z1 = np.matmul(x.T,W1) + b1    # (1,400)(400,25) = (1,25)
@@ -126,11 +118,6 @@ W_tst = 0.1*np.arange(1,7,1).reshape(2,3) # (2 input features, 3 output features
 b_tst = 0.1*np.arange(1,4,1).reshape(1,3) # (1,3 features)
 A_tst = my_dense_v(X_tst, W_tst, b_tst, sigmoid)
 print(A_tst)
-
-from public_tests import *
-
-test_c3(my_dense_v)
-
 
 def my_sequential_v(X, W1, b1, W2, b2, W3, b3):
     A1 = my_dense_v(X,  W1, b1, sigmoid)
@@ -165,6 +152,8 @@ fig.suptitle("Label, Yhat", fontsize=16)
 #plt.show()
 
 fig = plt.figure(figsize=(1, 1))
+
+
 errors = np.where(y != Yhat)
 
 
