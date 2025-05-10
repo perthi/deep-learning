@@ -56,8 +56,10 @@ def print_statistics(errors, X, y, Yhat, plot_misclassified: bool = True):
 
     len_err = len(values)
     len_all = len(y)
-    percent = 100*(len_err/len_all)
-    print("{} out of {} images was miss classified ( {} %)".format(len_err, len_all, percent))
+    percent_err = 100*(len_err/len_all)
+    percent_ok = 100 - percent_err
+    print("Success rate: {} %".format(percent_ok))
+    print("{} out of {} images was miss classified ( {} %)".format(len_err, len_all, percent_err))
 
     if plot_misclassified == True:
         def plot_single_image(index):

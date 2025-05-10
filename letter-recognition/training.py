@@ -1,35 +1,21 @@
+from utils import *
+from nn_model import *
+
 import numpy as np
 import tensorflow as tf
-from keras.api.layers import *
-from keras.api.optimizers import *
-from keras.api.models import Sequential
-from keras.api.layers import Dense
-from keras.api.losses import *
 import logging
 import warnings
-from utils import *
 
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
 tf.autograph.set_verbosity(0)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-print(tf.__version__)
-
 NO_EPOCS = 50
-layers_n = [25, 15, 1]
+#layers_n = [25, 15, 1]
 
-model = Sequential( [tf.keras.Input(shape=(input_size,)),], name = "my_model")
-#model = Sequential( [tf.keras.Input(shape=(400,)),], name = "my_model")
-
-
-for l in layers_n:
-    model.add( Dense(l, activation="sigmoid") )
-
-model.summary()
-model.compile( loss= BinaryCrossentropy(), optimizer= Adam(0.001),)
+model = genrate_model(layers=[25,15,1], input_size= input_size)
 
 X, y = load_data()
-
 model.fit(X,y,epochs=NO_EPOCS)
 #plot_random_with_prediction(8, 8, X, y, model, figsize=(8,8))
 
