@@ -7,7 +7,7 @@ from keras.api.optimizers import Adam
 
 import tensorflow as tf
 
-def genrate_model(layers:list, input_size:int ) -> Sequential :
+def generate_model(layers:list, input_size:int ) -> Sequential :
     model = Sequential( [tf.keras.Input(shape=(input_size,)),], name = "my_model")
     for l in layers:
         model.add( Dense(l, activation="sigmoid") )

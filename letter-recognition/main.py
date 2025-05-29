@@ -1,18 +1,19 @@
 from utils import *
 from nn_model import *
+from config import *
 
 import numpy as np
 import tensorflow as tf
 import logging
 import warnings
-import sys
 
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
 tf.autograph.set_verbosity(0)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-NO_EPOCS = 50
-model = genrate_model(layers=[25, 15,1], input_size= input_size)
+#NO_EPOCS = 50
+# model = generate_model(layers=[25, 15,1], input_size= input_size)
+model = generate_model(LAYERS, input_size= input_size)
 X_train, y_train,  X_validate, y_validate = load_data()
 
 
