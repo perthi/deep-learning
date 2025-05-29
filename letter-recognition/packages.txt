@@ -3,4 +3,5 @@ pip3 install matplotlib --break-system-packages
 pip install numphy
 sudo apt install nvidia-cuda-toolkit
 pip install matplotlib
+pip install  scikit-learn
 
