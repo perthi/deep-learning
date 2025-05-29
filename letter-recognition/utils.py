@@ -23,14 +23,13 @@ def load_data():
     """
     X = np.load("data/X.npy")
     y = np.load("data/y.npy")
-    X = X[0:1000]
-    y = y[0:1000] 
+    #X = X[0:1000]
+    #y = y[0:1000] 
     X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=TEST_SIZE_FRACTION, random_state= None )
     y_train_encoded = to_categorical(y_train)
     y_test_encoded = to_categorical(y_test)
-   # return X_train, y_train_encoded, X_test, y_test_encoded 
-
-    return X_train, y_train, X_test, y_test 
+    return X_train, y_train_encoded, X_test, y_test_encoded 
+   # return X_train, y_train, X_test, y_test 
 
 
 def print_statistics(errors, X, y, Yhat, plot_misclassified: bool = True):
@@ -38,10 +37,21 @@ def print_statistics(errors, X, y, Yhat, plot_misclassified: bool = True):
     print("tuple[1]", errors[1])
     indexes = errors[0]
     values =  errors[1]
+    Yhat2 = []
+
+    for i in  Yhat:
+        Yhat2.append(np.argmax(Yhat[i]))    
+ 
+    y2 = []
+
+    for i in  Yhat:
+        y2.append(np.argmax(y[i]))    
+
 
     for i in range(len(indexes)):
-        print("index = {}, value = {}, yhat = {}".format(indexes[i], values[i], Yhat[ indexes[i] ] ))
+        print("index = {}, value = {}, yhat = {}".format(indexes[i], values[i], Yhat2[ indexes[i] ] ))
 
+   # sys.exit()
     len_err = len(values)
     len_all = len(y)
     percent_err = 100*(len_err/len_all)
@@ -54,12 +64,44 @@ def print_statistics(errors, X, y, Yhat, plot_misclassified: bool = True):
             print("index = ", index )
             X_random_reshaped = X[index].reshape((npixels_x, npixels_y)).T
             plt.imshow(X_random_reshaped, cmap='gray')
-            plt.title(f"actual {y[index,0]}, predicted {Yhat[index, 0]}")
+            #plt.title(f"actual {y[index,0]}, predicted {Yhat[index, 0]}")
+            #plt.title(f"actual {y[index,0]}, predicted {Yhat2[index]}")
+            plt.title(f"actual {values[index]}, predicted {Yhat2[index]}")
             plt.axis('off')
 
-        for i in range(len(values)):
-            plot_single_image(indexes[i])
+       # for i in range(len(values)):
+       #     plot_single_image(indexes[i])
+       #     plt.show()
+
+        for i in indexes:
+            plot_single_image(i)
             plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Pick random indexes from and npy array and plot them in a grid

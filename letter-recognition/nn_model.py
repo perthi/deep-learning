@@ -19,7 +19,7 @@ def generate_model(layers:list, input_size:int ) -> Sequential :
            print( "i == length" )
            print("i = {}, len = {}".format(i, length) )
         else:
-           model.add( Dense(1, activation ="softmax") )
+           model.add( Dense(10, activation ="softmax") )
            print( "i != length" )
            print("i = {}, len = {}".format(i, length) )
         i+=1;    
