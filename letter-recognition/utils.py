@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
 import matplotlib.axes._axes as Axes
 from sklearn.model_selection import train_test_split
+from keras.api.utils import to_categorical
+
 from config import TEST_SIZE_FRACTION
 import sys
 
@@ -23,9 +25,12 @@ def load_data():
     y = np.load("data/y.npy")
     X = X[0:1000]
     y = y[0:1000] 
-    X_train, X_validate, y_train, y_validate = train_test_split( X, y, test_size=TEST_SIZE_FRACTION, random_state= None )
-    
-    return X_train, y_train, X_validate, y_validate 
+    X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=TEST_SIZE_FRACTION, random_state= None )
+    y_train_encoded = to_categorical(y_train)
+    y_test_encoded = to_categorical(y_test)
+   # return X_train, y_train_encoded, X_test, y_test_encoded 
+
+    return X_train, y_train, X_test, y_test 
 
 
 def print_statistics(errors, X, y, Yhat, plot_misclassified: bool = True):
