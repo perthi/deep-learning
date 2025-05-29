@@ -5,6 +5,7 @@ import numpy as np
 import tensorflow as tf
 import logging
 import warnings
+import sys
 
 logging.getLogger("tensorflow").setLevel(logging.ERROR)
 tf.autograph.set_verbosity(0)
@@ -15,8 +16,14 @@ NO_EPOCS = 50
 
 model = genrate_model(layers=[25,15,1], input_size= input_size)
 
-X, y = load_data()
-model.fit(X,y,epochs=NO_EPOCS)
+X_train, y_train,  X_validate, y_validate = load_data()
+
+
+
+model.fit(X_train,y_train,epochs=NO_EPOCS)
+
+#sys.exit()
+
 #plot_random_with_prediction(8, 8, X, y, model, figsize=(8,8))
 
 def dense_propagation_v(A_in, W, b, g):
@@ -47,11 +54,12 @@ def get_parameters(layers):
         b.append(b_l)
     return W, b
 
+
 W, b = get_parameters( model.layers )
 
-prediction = inference_v(X, W, b)
-Yhat = (prediction >= 0.5).astype(int)
+prediction = inference_v(X_validate, W, b)
+y_predicted = (prediction >= 0.5).astype(int)
 
 #plot_random_with_prediction_v(8, 8, X, y, Yhat, figsize=(8,8))
-errors = np.where(y != Yhat)
-print_statistics(errors, X, y, Yhat)
+errors = np.where(y_validate != y_predicted)
+print_statistics(errors, X_validate, y_validate, y_predicted)

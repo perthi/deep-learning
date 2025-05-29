@@ -15,14 +15,18 @@ def sigmoid(x):
 def load_data(debug: bool = False):
     X = np.load("data/X.npy")
     y = np.load("data/y.npy")
-    X = X[0:1000]
-    y = y[0:1000]
+#    X_train = X[0:1000]
+#    y_train = y[0:1000]
+    X_train = X[0:799]
+    y_train = y[0:799]
+    X_validate = X[800:1000]
+    y_validate = y[800:1000]
     if debug == True:
         print ('The first element of X is: ', X[0])
         print ('The shape of X is: ' + str(X.shape))
         print ('The shape of y is: ' + str(y.shape))
 
-    return X, y
+    return X_train, y_train, X_validate, y_validate 
 
 def load_weights():
     w1 = np.load("data/w1.npy")
