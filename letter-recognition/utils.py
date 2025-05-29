@@ -32,11 +32,7 @@ def load_data():
    # return X_train, y_train, X_test, y_test 
 
 
-def print_statistics(errors, X, y_validate, y_predicted, plot_misclassified: bool = True):
-  #  print("tuple[0]", errors[0])
-  #  print("tuple[1]", errors[1])
-   # indexes = errors[0]
-   # values =  errors[1]
+def print_statistics(X, y_validate, y_predicted, plot_misclassified: bool = True):
     y_pred_err = []
     y_val_err = []
     indexes_err = []
@@ -50,15 +46,9 @@ def print_statistics(errors, X, y_validate, y_predicted, plot_misclassified: boo
         y_pred.append(np.argmax(y_predicted[i]))
         y_val.append(np.argmax(y_validate[i]))
 
-  #  print(Yhat.shape)
-  #  print(Yhat[3].shape)
-  #  print(Yhat)    
-    #sys.exit()
-
 
     for i in  range(m):
         max_pred = np.argmax(y_predicted[i])
-     
         max_val = np.argmax(y_validate[i])
         #print("\n")
         ##print(Yhat[i])    
@@ -75,16 +65,13 @@ def print_statistics(errors, X, y_validate, y_predicted, plot_misclassified: boo
     print("Success rate: {} %".format(percent_ok))
     print("{} out of {} images was miss classified ( {} %)".format(len_err, len_all, percent_err))
 
-#    sys.exit()
+    sys.exit()
 
     if plot_misclassified == True:
         def plot_single_image(index):
             print("index = ", index )
             X_random_reshaped = X[index].reshape((npixels_x, npixels_y)).T
-            plt.imshow(X_random_reshaped, cmap='gray')
-            #plt.title(f"actual {y[index,0]}, predicted {Yhat[index, 0]}")
-            #plt.title(f"actual {y[index,0]}, predicted {Yhat2[index]}")
-           # plt.title(f"actual {y_val_err[index]}, predicted {y_pred_err[index]}")
+            plt.imshow(X_random_reshaped, cmap=None)
             plt.title(f"actual {y_val[index]}, predicted {y_pred[index]}")
             plt.axis('off')
 

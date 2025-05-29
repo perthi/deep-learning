@@ -6,6 +6,7 @@ from keras.api.losses import BinaryCrossentropy
 from keras.api.optimizers import Adam
 from keras.api.utils import to_categorical
 import sys
+from config import *
 
 import tensorflow as tf
 
@@ -16,22 +17,12 @@ def generate_model(layers:list, input_size:int ) -> Sequential :
     for l in layers:
         if i != (length -1 ):
            model.add( Dense(l, activation ="sigmoid") )
-           print( "i == length" )
-           print("i = {}, len = {}".format(i, length) )
         else:
-           model.add( Dense(10, activation ="softmax") )
-           print( "i != length" )
-           print("i = {}, len = {}".format(i, length) )
+           model.add( Dense(l, activation ="softmax") )
         i+=1;    
         
-        #print("i = {}, len = {}".format(i, length) )
-   
-   # print("{} out of {} images was miss classified ( {} %)".format(len_err, len_all, percent_err))
 
     model.summary()
-    model.compile( loss= BinaryCrossentropy(), optimizer= Adam(0.001),)
-    #sys.exit()
+    model.compile( loss= BinaryCrossentropy(), optimizer= Adam(ADAM),)
     return model
-
-
 

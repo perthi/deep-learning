@@ -55,24 +55,23 @@ W, b = get_parameters( model.layers )
 prediction = inference_v(X_validate, W, b)
 y_predicted = (prediction >= 0.5).astype(int)
 
-for x in y_predicted:
-    print("x = {}, argmax(x)".format(x),np.argmax(x))
+#for x in y_predicted:
+#    print("x = {}, argmax(x)".format(x),np.argmax(x))
 
-for z in y_validate:
-    print(z)
+#for z in y_validate:
+#    print(z)
 
-indexes = []
-values  = []
+#indexes = []
+#values  = []
 
+"""
 for i in range(len(y_validate)):
     argmax_val  = np.argmax(y_validate[i])
     argmax_pred = np.argmax(y_predicted[i])
     if argmax_val != argmax_pred:
         indexes.append(i)
         values.append(argmax_pred)
-
-print("len1 = ", len(y_predicted))
-print("len2 = ", len(y_validate))
+"""
 
 #plot_random_with_prediction_v(8, 8, X, y, Yhat, figsize=(8,8))
 print("y_validate,shape ",   y_validate.shape )
@@ -80,16 +79,7 @@ print("y_prediciton,shape ", y_predicted.shape )
 
 
 #errors = np.where(y_validate != y_predicted)
-errors = (indexes, values)
-print(type(errors))
-#print("tuple[0]", errors[0])
-#print("tuple[1]", errors[1])
+#errors = (indexes, values)
 
-print("len tuple[0]", len(errors[0]))
-print("len tuple[1]", len(errors[1]))
 
-#print("VALUES =", values)
-
-#sys.exit()
-
-print_statistics(errors, X_validate, y_validate, y_predicted)
+print_statistics(X_validate, y_validate, y_predicted)
