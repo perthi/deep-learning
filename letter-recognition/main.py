@@ -82,13 +82,13 @@ print("y_prediciton,shape ", y_predicted.shape )
 #errors = np.where(y_validate != y_predicted)
 errors = (indexes, values)
 print(type(errors))
-print("tuple[0]", errors[0])
-print("tuple[1]", errors[1])
+#print("tuple[0]", errors[0])
+#print("tuple[1]", errors[1])
 
 print("len tuple[0]", len(errors[0]))
 print("len tuple[1]", len(errors[1]))
 
-print("VALUES =", values)
+#print("VALUES =", values)
 
 #sys.exit()
 

@@ -19,7 +19,7 @@ def load_data():
     """!
     Loading data, there are 500 samples of each digit
     which is organized form 0 to 9. The first 1000
-    entries will therfore contain only contain images of zeroes and ones
+    entries will therefore contain only contain images of zeroes and ones
     """
     X = np.load("data/X.npy")
     y = np.load("data/y.npy")
@@ -32,32 +32,50 @@ def load_data():
    # return X_train, y_train, X_test, y_test 
 
 
-def print_statistics(errors, X, y, Yhat, plot_misclassified: bool = True):
-    print("tuple[0]", errors[0])
-    print("tuple[1]", errors[1])
-    indexes = errors[0]
-    values =  errors[1]
-    Yhat2 = []
+def print_statistics(errors, X, y_validate, y_predicted, plot_misclassified: bool = True):
+  #  print("tuple[0]", errors[0])
+  #  print("tuple[1]", errors[1])
+   # indexes = errors[0]
+   # values =  errors[1]
+    y_pred_err = []
+    y_val_err = []
+    indexes_err = []
 
-    for i in  Yhat:
-        Yhat2.append(np.argmax(Yhat[i]))    
- 
-    y2 = []
+    y_pred = []
+    y_val = []
 
-    for i in  Yhat:
-        y2.append(np.argmax(y[i]))    
+    m,n = y_predicted.shape
+
+    for i in range(m):
+        y_pred.append(np.argmax(y_predicted[i]))
+        y_val.append(np.argmax(y_validate[i]))
+
+  #  print(Yhat.shape)
+  #  print(Yhat[3].shape)
+  #  print(Yhat)    
+    #sys.exit()
 
 
-    for i in range(len(indexes)):
-        print("index = {}, value = {}, yhat = {}".format(indexes[i], values[i], Yhat2[ indexes[i] ] ))
+    for i in  range(m):
+        max_pred = np.argmax(y_predicted[i])
+     
+        max_val = np.argmax(y_validate[i])
+        #print("\n")
+        ##print(Yhat[i])    
+        if( max_pred != max_val ):
+            y_pred_err.append(max_pred)
+            y_val_err.append(max_val)
+            indexes_err.append(i)
+            print("idx ={} len = {}, argmax_pred = {}, argmax_val = {}".format(i, len(y_predicted[i]), max_pred, max_val) )
 
-   # sys.exit()
-    len_err = len(values)
-    len_all = len(y)
+    len_err = len(y_val_err)
+    len_all = len(y_validate)
     percent_err = 100*(len_err/len_all)
     percent_ok = 100 - percent_err
     print("Success rate: {} %".format(percent_ok))
     print("{} out of {} images was miss classified ( {} %)".format(len_err, len_all, percent_err))
+
+#    sys.exit()
 
     if plot_misclassified == True:
         def plot_single_image(index):
@@ -66,14 +84,11 @@ def print_statistics(errors, X, y, Yhat, plot_misclassified: bool = True):
             plt.imshow(X_random_reshaped, cmap='gray')
             #plt.title(f"actual {y[index,0]}, predicted {Yhat[index, 0]}")
             #plt.title(f"actual {y[index,0]}, predicted {Yhat2[index]}")
-            plt.title(f"actual {values[index]}, predicted {Yhat2[index]}")
+           # plt.title(f"actual {y_val_err[index]}, predicted {y_pred_err[index]}")
+            plt.title(f"actual {y_val[index]}, predicted {y_pred[index]}")
             plt.axis('off')
 
-       # for i in range(len(values)):
-       #     plot_single_image(indexes[i])
-       #     plt.show()
-
-        for i in indexes:
+        for i in indexes_err:
             plot_single_image(i)
             plt.show()
 
