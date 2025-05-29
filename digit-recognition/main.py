@@ -51,7 +51,7 @@ prediction_val = inference_v(X_validate, W, b)
 y_predicted_val = (prediction_val >= 0.5).astype(int)
 
 print("*** TEST STATISTICS FOR VALIDATION DATA****")
-print_statistics(X_validate, y_validate, y_predicted_val, plot_misclassified= False)
+print_statistics(X_validate, y_validate, y_predicted_val, plot_misclassified= True)
 
 prediction_train = inference_v(X_train, W, b)
 y_predicted_train = (prediction_train >= 0.5).astype(int)
