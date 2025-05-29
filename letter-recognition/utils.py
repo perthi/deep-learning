@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
 import matplotlib.axes._axes as Axes
 #from sklearn.datasets i
+from sklearn.model_selection import train_test_split
+import sys
 
 npixels_x:int = 20
 npixels_y:int = 20
@@ -13,14 +15,14 @@ def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
 def load_data(debug: bool = False):
+    
     X = np.load("data/X.npy")
     y = np.load("data/y.npy")
-#    X_train = X[0:1000]
-#    y_train = y[0:1000]
-    X_train = X[0:799]
-    y_train = y[0:799]
-    X_validate = X[800:1000]
-    y_validate = y[800:1000]
+    X = X[0:1000]
+    y = y[0:1000] 
+
+    X_train, X_validate, y_train, y_validate = train_test_split( X, y, test_size=0.20, random_state= None )
+
     if debug == True:
         print ('The first element of X is: ', X[0])
         print ('The shape of X is: ' + str(X.shape))

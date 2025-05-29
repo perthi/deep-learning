@@ -12,17 +12,11 @@ tf.autograph.set_verbosity(0)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 NO_EPOCS = 50
-#layers_n = [25, 15, 1]
-
-model = genrate_model(layers=[25,15,1], input_size= input_size)
-
+model = genrate_model(layers=[25, 15,1], input_size= input_size)
 X_train, y_train,  X_validate, y_validate = load_data()
 
 
-
 model.fit(X_train,y_train,epochs=NO_EPOCS)
-
-#sys.exit()
 
 #plot_random_with_prediction(8, 8, X, y, model, figsize=(8,8))
 
