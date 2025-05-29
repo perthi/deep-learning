@@ -27,8 +27,8 @@ def load_data():
     #y = y[0:1000] 
     X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=TEST_SIZE_FRACTION, random_state= None )
     y_train_encoded = to_categorical(y_train)
-    y_test_encoded = to_categorical(y_test)
-    return X_train, y_train_encoded, X_test, y_test_encoded 
+    y_val_encoded = to_categorical(y_test)
+    return X_train, y_train_encoded, X_test, y_val_encoded 
    # return X_train, y_train, X_test, y_test 
 
 
@@ -56,7 +56,7 @@ def print_statistics(X, y_validate, y_predicted, plot_misclassified: bool = True
             y_pred_err.append(max_pred)
             y_val_err.append(max_val)
             indexes_err.append(i)
-            print("idx ={} len = {}, argmax_pred = {}, argmax_val = {}".format(i, len(y_predicted[i]), max_pred, max_val) )
+            #print("idx ={} len = {}, argmax_pred = {}, argmax_val = {}".format(i, len(y_predicted[i]), max_pred, max_val) )
 
     len_err = len(y_val_err)
     len_all = len(y_validate)
@@ -65,7 +65,7 @@ def print_statistics(X, y_validate, y_predicted, plot_misclassified: bool = True
     print("Success rate: {} %".format(percent_ok))
     print("{} out of {} images was miss classified ( {} %)".format(len_err, len_all, percent_err))
 
-    sys.exit()
+    #sys.exit()
 
     if plot_misclassified == True:
         def plot_single_image(index):

@@ -11,14 +11,9 @@ logging.getLogger("tensorflow").setLevel(logging.ERROR)
 tf.autograph.set_verbosity(0)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-#NO_EPOCS = 50
-# model = generate_model(layers=[25, 15,1], input_size= input_size)
 model = generate_model(LAYERS, input_size= input_size)
 X_train, y_train,  X_validate, y_validate = load_data()
-
-
 model.fit(X_train,y_train,epochs=NO_EPOCS)
-
 #plot_random_with_prediction(8, 8, X, y, model, figsize=(8,8))
 
 def dense_propagation_v(A_in, W, b, g):
@@ -52,34 +47,14 @@ def get_parameters(layers):
 
 W, b = get_parameters( model.layers )
 
-prediction = inference_v(X_validate, W, b)
-y_predicted = (prediction >= 0.5).astype(int)
+prediction_val = inference_v(X_validate, W, b)
+y_predicted_val = (prediction_val >= 0.5).astype(int)
 
-#for x in y_predicted:
-#    print("x = {}, argmax(x)".format(x),np.argmax(x))
+print("*** TEST STATISTICS FOR VALIDATION DATA****")
+print_statistics(X_validate, y_validate, y_predicted_val, plot_misclassified= False)
 
-#for z in y_validate:
-#    print(z)
+prediction_train = inference_v(X_train, W, b)
+y_predicted_train = (prediction_train >= 0.5).astype(int)
 
-#indexes = []
-#values  = []
-
-"""
-for i in range(len(y_validate)):
-    argmax_val  = np.argmax(y_validate[i])
-    argmax_pred = np.argmax(y_predicted[i])
-    if argmax_val != argmax_pred:
-        indexes.append(i)
-        values.append(argmax_pred)
-"""
-
-#plot_random_with_prediction_v(8, 8, X, y, Yhat, figsize=(8,8))
-print("y_validate,shape ",   y_validate.shape )
-print("y_prediciton,shape ", y_predicted.shape )
-
-
-#errors = np.where(y_validate != y_predicted)
-#errors = (indexes, values)
-
-
-print_statistics(X_validate, y_validate, y_predicted)
+print("*** TEST STATISTICS FOR TRAINING DATA****")
+print_statistics(X_train, y_train, y_predicted_train, plot_misclassified=False)
